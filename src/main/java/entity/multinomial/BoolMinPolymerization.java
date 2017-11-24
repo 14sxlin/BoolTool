@@ -7,21 +7,21 @@ import java.util.HashSet;
  * Created by linsixin on 2017/11/22.
  * 布尔函数的小项表示
  */
-public class BoolMinPolymerization {
-
-    private HashSet<MinTerm> terms;
+public class BoolMinPolymerization extends Polymerization<BoolMinPolymerization.MinTerm> {
 
     public BoolMinPolymerization(MinTerm ...terms){
         if(terms == null)
             throw new IllegalArgumentException();
         this.terms = new HashSet<>();
         Collections.addAll(this.terms, terms);
+        checkAndInitVarLength();
     }
 
     public BoolMinPolymerization(HashSet<MinTerm> terms){
         if(terms == null)
             throw new IllegalArgumentException();
         this.terms = terms;
+        checkAndInitVarLength();
     }
 
     public BoolPolymerization toPolymerization(){
@@ -32,6 +32,9 @@ public class BoolMinPolymerization {
         return poly;
     }
 
+    public int getVarLength() {
+        return varLength;
+    }
 
     @Override
     public String toString() {
@@ -106,9 +109,9 @@ public class BoolMinPolymerization {
 
         private BoolPolymerization createPolyWithOne(int negIndex){
             HashSet<BoolPolymerization.BoolTerm> terms = new HashSet<>();
-            boolean[] negElem = new boolean[elems.length];
-            negElem[negIndex] = true;
-            terms.add(new BoolPolymerization.BoolTerm(negElem));
+            boolean[] elem = new boolean[elems.length];
+            elem[negIndex] = true;
+            terms.add(new BoolPolymerization.BoolTerm(elem));
             terms.add(BoolPolymerization.ONE_TERM);
             return new BoolPolymerization(terms);
         }

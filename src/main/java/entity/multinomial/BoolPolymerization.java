@@ -1,5 +1,7 @@
 package entity.multinomial;
 
+import entity.bool.BoolResult;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -7,12 +9,11 @@ import java.util.HashSet;
 /**
  * Created by linsixin on 2017/11/22.
  */
-public final class BoolPolymerization {
+public final class BoolPolymerization
+        extends Polymerization<BoolPolymerization.BoolTerm>{
 
 
     public static final OneTerm ONE_TERM = new OneTerm();
-
-    private HashSet<BoolTerm> terms;
 
     public BoolPolymerization(){
         terms = new HashSet<>();
@@ -23,23 +24,29 @@ public final class BoolPolymerization {
      * @param terms 多项式的项
      */
     public BoolPolymerization(HashSet<BoolTerm> terms){
+        if(terms == null)
+            throw new IllegalArgumentException();
         this.terms = terms;
+        checkAndInitVarLength();
     }
 
     /**
      * 初始化一个多项式,这个多项式中只有一个项
-     * @param term 唯一的项
+     * @param terms 唯一的项
      */
-    public BoolPolymerization(BoolTerm ...term){
-        terms = new HashSet<>();
-        Collections.addAll(terms,term);
+    public BoolPolymerization(BoolTerm ...terms){
+        if(terms == null)
+            throw new IllegalArgumentException();
+        this.terms = new HashSet<>();
+        Collections.addAll(this.terms, terms);
+        checkAndInitVarLength();
     }
 
 
     /**
      * 标准的布尔函数的多项式的项
      */
-    public static class BoolTerm extends Term{
+    public static class BoolTerm extends Term {
 
         public static BoolTerm create(int total,int ...varIndex){
             boolean[] elems = new boolean[total];
@@ -113,6 +120,17 @@ public final class BoolPolymerization {
         public String toString() {
             return "1";
         }
+
+        /**
+         * 初始化多项式的时候,需要检查元素的变量的长度的一致性
+         * 但是 1 项是没有长度, 规定为 -1
+         * {@see checkAndInitVarLength}
+         * @return -1
+         */
+        @Override
+        public int getVarLen() {
+            return -1;
+        }
     }
 
 
@@ -184,4 +202,6 @@ public final class BoolPolymerization {
         }
         return sb.toString();
     }
+
+
 }

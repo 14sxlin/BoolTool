@@ -1,9 +1,11 @@
 package entity.multinomial;
 
+import entity.bool.BoolResult;
+
 /**
  * Created by linsixin on 2017/11/23.
  */
-public abstract class Term {
+public abstract class Term implements BoolResult{
 
     /**
      * 变量是否在此项中
@@ -27,5 +29,40 @@ public abstract class Term {
             if(e) return;
         }
         throw new IllegalArgumentException("There should be a least one variable");
+    }
+
+    /**
+     * @return 布尔函数的输入变量的个数
+     */
+    public int getVarLen(){
+        return elems.length;
+    }
+
+
+    @Override
+    public int resultOf(boolean[] x) {
+        if(x.length != elems.length)
+            throw new IllegalArgumentException("x.length should equal to var length");
+        for(int i=0; i< elems.length; i++){
+            if (elems[i] && !x[i]) { // 某一位存在 但是 输入中该位是0,该项为0
+                return 0;
+            }
+        }
+        return 1;
+    }
+
+    @Override
+    public int resultOf(int[] x) {
+        return resultOf(intArray2booleanArray(x));
+    }
+
+    @Override
+    public int resultOf(long x) {
+        return resultOf(long2booleanArray(x,elems.length));
+    }
+
+    @Override
+    public int resultOf(int x) {
+        return resultOf(int2booleanArray(x,elems.length));
     }
 }
