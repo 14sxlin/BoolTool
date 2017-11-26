@@ -21,8 +21,13 @@ public abstract class Walsh {
 
 
     public Walsh(BoolResult boolFun,int varLength){
+        if(varLength <= 0)
+            throw new IllegalArgumentException("varLength should > 0");
+        if(varLength > 31)
+            throw new IllegalArgumentException("varLength should <= 31");
         this.boolFun = boolFun;
         this.varLength = varLength;
+
     }
 
     /**
@@ -54,5 +59,10 @@ public abstract class Walsh {
         return boolFun.resultOf(x);
     }
 
-
+    protected int maxInput(){
+        long max = (long)((1 << varLength) - 1);
+        if(max > Integer.MAX_VALUE)
+            throw new IllegalArgumentException("var length too large");
+        return (int)max;
+    }
 }

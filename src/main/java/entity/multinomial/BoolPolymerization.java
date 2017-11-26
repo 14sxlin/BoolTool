@@ -1,5 +1,7 @@
 package entity.multinomial;
 
+import entity.bool.BoolVector;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -46,9 +48,9 @@ public final class BoolPolymerization
      */
     public static class BoolTerm extends Term {
 
-        public static BoolTerm create(int total,int ...varIndex){
-            boolean[] elems = new boolean[total];
-            for(int i:varIndex)
+        public static BoolTerm create(int varLength,int ...existIndices){
+            boolean[] elems = new boolean[varLength];
+            for(int i:existIndices)
                 elems[i] = true;
             return new BoolTerm(elems);
         }
@@ -104,7 +106,9 @@ public final class BoolPolymerization
     /**
      * 标准的布尔函数中的常数项 1
      */
-    private static final class OneTerm extends BoolTerm{
+    public static final class OneTerm extends BoolTerm{
+
+        private OneTerm(){}
 
         //解决了 one_term * 其他term 的问题 与 one_term * one_term 的问题
         @Override
@@ -128,6 +132,11 @@ public final class BoolPolymerization
         @Override
         public int getVarLen() {
             return -1;
+        }
+
+        @Override
+        public int resultOf(BoolVector x) {
+            return 1;
         }
     }
 

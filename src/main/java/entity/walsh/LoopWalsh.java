@@ -16,11 +16,10 @@ public class LoopWalsh extends Walsh{
     @Override
     public int rawResultOf(BoolVector w) {
         int result = 0;
-        for(int i=0; i < varLength ; i++){
+        for(int i=0; i < maxInput(); i++){
             BoolVector x = BoolVector.createBoolVector(i,w.getLength());
             result +=  _1power(f(x) + w.multiply(x)) ;
         }
-        result %= 2;
         return result;
     }
 }

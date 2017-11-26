@@ -74,6 +74,10 @@ public class BoolVector {
         return new BoolVector(values);
     }
 
+    public static BoolVector createBoolVector(String integer,int varLength){
+        return createBoolVector(Integer.parseInt(integer,2),varLength);
+    }
+
 
     private BoolVector(BoolValue[] boolValues){
         this.boolValues = boolValues;
@@ -112,7 +116,9 @@ public class BoolVector {
         assert getLength() == boolVector.getLength();
         int result = 0;
         for(int i = 0; i< boolValues.length; i++){
-            result += intAt(i) * boolVector.intAt(i);
+            int temp = intAt(i);
+            if(temp == 0) continue;
+            result += temp * boolVector.intAt(i);
         }
         return result % 2;
     }

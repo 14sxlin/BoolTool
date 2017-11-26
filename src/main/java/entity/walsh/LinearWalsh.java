@@ -19,11 +19,10 @@ public class LinearWalsh extends Walsh {
     @Override
     public int rawResultOf(BoolVector w){
         int result = 0;
-        for(int i=0; i< varLength ; i++){
+        for(int i=0; i <= maxInput() ; i++){
             BoolVector x = BoolVector.createBoolVector(i,w.getLength());
             result +=  f(x) * _1power(w.multiply(x)) ;
         }
-        result %= 2;
         return result;
     }
 
