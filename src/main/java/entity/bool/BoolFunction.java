@@ -7,14 +7,8 @@ package entity.bool;
  */
 public interface BoolFunction extends BoolResult {
 
-
     boolean isAffine();
 
     boolean isLinear();
 
-    /**
-     * get the walsh of this bool function
-     * @return walsh form
-     */
-    Walsh toWalsh();
 }

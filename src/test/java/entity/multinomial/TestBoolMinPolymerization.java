@@ -1,7 +1,5 @@
-package multinomial;
+package entity.multinomial;
 
-import entity.multinomial.BoolMinPolymerization;
-import entity.multinomial.BoolPolymerization;
 import org.junit.Before;
 import org.junit.Test;
 

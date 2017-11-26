@@ -1,4 +1,4 @@
-package multinomial;
+package entity.multinomial;
 
 import entity.multinomial.BoolPolymerization.BoolTerm;
 import org.junit.Test;

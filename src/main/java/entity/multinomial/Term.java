@@ -1,9 +1,11 @@
 package entity.multinomial;
 
 import entity.bool.BoolResult;
+import static entity.bool.TransformUtilsKt.*;
 
 /**
  * Created by linsixin on 2017/11/23.
+ * GF(2) 多项式的 项
  */
 public abstract class Term implements BoolResult{
 
@@ -57,12 +59,7 @@ public abstract class Term implements BoolResult{
     }
 
     @Override
-    public int resultOf(long x) {
-        return resultOf(long2booleanArray(x,elems.length));
-    }
-
-    @Override
     public int resultOf(int x) {
-        return resultOf(int2booleanArray(x,elems.length));
+        return resultOf(int2BooleanArray(x,elems.length));
     }
 }

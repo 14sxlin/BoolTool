@@ -4,8 +4,12 @@ import entity.bool.BoolResult;
 
 import java.util.HashSet;
 
+import static entity.bool.TransformUtilsKt.int2BooleanArray;
+import static entity.bool.TransformUtilsKt.intArray2booleanArray;
+
 /**
  * Created by linsixin on 2017/11/24.
+ * 代表了 GF(2) -> GF(2) 的多项式
  */
 public abstract class Polymerization<T extends Term> implements BoolResult{
 
@@ -53,16 +57,9 @@ public abstract class Polymerization<T extends Term> implements BoolResult{
     }
 
     @Override
-    public int resultOf(long x) {
-        if(varLength == -1) // only OneTerm,no matter what input , result is 1
-            return 1;
-        return resultOf(long2booleanArray(x,varLength));
-    }
-
-    @Override
     public int resultOf(int x) {
         if(varLength == -1) // only OneTerm,no matter what input , result is 1
             return 1;
-        return resultOf(int2booleanArray(x,varLength));
+        return resultOf(int2BooleanArray(x,varLength));
     }
 }
