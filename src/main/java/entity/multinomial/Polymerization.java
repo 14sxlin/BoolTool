@@ -1,11 +1,9 @@
 package entity.multinomial;
 
 import entity.bool.BoolResult;
+import entity.bool.BoolVector;
 
 import java.util.HashSet;
-
-import static entity.bool.TransformUtilsKt.int2BooleanArray;
-import static entity.bool.TransformUtilsKt.intArray2booleanArray;
 
 /**
  * Created by linsixin on 2017/11/24.
@@ -37,7 +35,7 @@ public abstract class Polymerization<T extends Term> implements BoolResult{
 
 
     @Override
-    public int resultOf(boolean[] x) {
+    public int resultOf(BoolVector x) {
         if(varLength == -1) // only OneTerm,no matter what input , result is 1
             return 1;
         int result = 0;
@@ -46,20 +44,5 @@ public abstract class Polymerization<T extends Term> implements BoolResult{
             result %= 2;
         }
         return result;
-    }
-
-
-    @Override
-    public int resultOf(int[] x) {
-        if(varLength == -1) // only OneTerm,no matter what input , result is 1
-            return 1;
-        return resultOf(intArray2booleanArray(x));
-    }
-
-    @Override
-    public int resultOf(int x) {
-        if(varLength == -1) // only OneTerm,no matter what input , result is 1
-            return 1;
-        return resultOf(int2BooleanArray(x,varLength));
     }
 }

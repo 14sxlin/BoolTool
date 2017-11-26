@@ -1,6 +1,7 @@
 package entity.walsh;
 
 import entity.bool.BoolResult;
+import entity.bool.BoolVector;
 
 /**
  * Created by linsixin on 2017/11/26.
@@ -13,13 +14,13 @@ public class LoopWalsh extends Walsh{
     }
 
     @Override
-    public int rawResultOf(int w) {
+    public int rawResultOf(BoolVector w) {
         int result = 0;
-        for(int x=0; x< varLength ; x++){
-            result +=  _1power(f(x) + vectorMultiply(w,x)) ;
+        for(int i=0; i < varLength ; i++){
+            BoolVector x = BoolVector.createBoolVector(i,w.getLength());
+            result +=  _1power(f(x) + w.multiply(x)) ;
         }
         result %= 2;
         return result;
     }
-
 }

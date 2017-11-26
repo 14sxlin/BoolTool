@@ -1,7 +1,7 @@
 package entity.multinomial;
 
 import entity.bool.BoolResult;
-import static entity.bool.TransformUtilsKt.*;
+import entity.bool.BoolVector;
 
 /**
  * Created by linsixin on 2017/11/23.
@@ -42,24 +42,14 @@ public abstract class Term implements BoolResult{
 
 
     @Override
-    public int resultOf(boolean[] x) {
-        if(x.length != elems.length)
+    public int resultOf(BoolVector x) {
+        if(x.getLength() != elems.length)
             throw new IllegalArgumentException("x.length should equal to var length");
         for(int i=0; i< elems.length; i++){
-            if (elems[i] && !x[i]) { // 某一位存在 但是 输入中该位是0,该项为0
+            if (elems[i] && !x.boolAt(i)) { // 某一位存在 但是 输入中该位是0,该项为0
                 return 0;
             }
         }
         return 1;
-    }
-
-    @Override
-    public int resultOf(int[] x) {
-        return resultOf(intArray2booleanArray(x));
-    }
-
-    @Override
-    public int resultOf(int x) {
-        return resultOf(int2BooleanArray(x,elems.length));
     }
 }

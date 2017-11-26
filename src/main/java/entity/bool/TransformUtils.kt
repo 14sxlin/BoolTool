@@ -49,6 +49,8 @@ fun int2BooleanArray(x: Int, varLength: Int): BooleanArray {
 }
 
 fun int2IntArray(x:Int , varLength: Int):IntArray{
+    if(varLength < 1)
+        throw IllegalArgumentException("varLength should >= 1")
     val result = IntArray(varLength){ 0 }
     for( (i,value) in int2BooleanArray(x,varLength).withIndex()){
         result[i] = if(value) 1 else 0

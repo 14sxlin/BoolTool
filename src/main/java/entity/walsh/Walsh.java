@@ -1,6 +1,7 @@
 package entity.walsh;
 
 import entity.bool.BoolResult;
+import entity.bool.BoolVector;
 import entity.bool.TransformUtilsKt;
 
 /**
@@ -28,14 +29,14 @@ public abstract class Walsh {
      * 计算 walsh 谱的值
      * @param w walsh谱的输入
      */
-    public double resultOf(int w){
+    public double resultOf(BoolVector w){
         return rawResultOf(w) / Math.pow(2.0,varLength);
     };
 
     /**
      * walsh 谱的值, 不乘上 1/(2^n)
      */
-    public abstract int rawResultOf(int w);
+    public abstract int rawResultOf(BoolVector w);
 
     /**
      * (-1)^pow
@@ -49,35 +50,9 @@ public abstract class Walsh {
     /**
      * 对应输入x 布尔函数的输出值
      */
-    protected int f(int x){
+    protected int f(BoolVector x){
         return boolFun.resultOf(x);
     }
-
-    /**
-     * 计算 w 和 x 的内积
-     * @param w 向量转换成10进制的数
-     * @param x 向量转换成10进制的数
-     */
-    protected int vectorMultiply(int w, int x){
-        int[] wArray = TransformUtilsKt.int2IntArray(w,varLength);
-        int[] xArray = TransformUtilsKt.int2IntArray(x,varLength);
-        return vectorMultiply(wArray,xArray);
-    }
-
-    /**
-     * 计算 w 和 x 的内积
-     * @param wArray w 向量
-     * @param xArray x 向量
-     */
-    protected int vectorMultiply(int[] wArray, int[] xArray){
-        int result = 0;
-        for(int i = 0; i<wArray.length ; i++){
-            result += wArray[i] * xArray[i];
-        }
-        result %= 2;
-        return result;
-    }
-
 
 
 }
