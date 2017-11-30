@@ -42,7 +42,6 @@ public final class BoolPolymerization
         checkAndInitVarLength();
     }
 
-
     /**
      * 标准的布尔函数的多项式的项
      */

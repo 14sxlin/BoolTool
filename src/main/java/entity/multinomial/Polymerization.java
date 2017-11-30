@@ -1,6 +1,6 @@
 package entity.multinomial;
 
-import entity.bool.BoolResult;
+import entity.bool.BoolFunction;
 import entity.bool.BoolVector;
 
 import java.util.HashSet;
@@ -9,18 +9,12 @@ import java.util.HashSet;
  * Created by linsixin on 2017/11/24.
  * 代表了 GF(2) -> GF(2) 的多项式
  */
-public abstract class Polymerization<T extends Term> implements BoolResult{
+public abstract class Polymerization<T extends Term> extends BoolFunction{
 
-    /**
-     * 多项式输入变量的长度
-     * 如果多项式只有常数项1 , 那么变量的数目无法确定
-     * 此时varLength 为 { @See OneTerm } 的 varLength 也就是 -1
-     */
-    protected int varLength;
+    HashSet<T> terms;
+    int weight = -1;
 
-    protected HashSet<T> terms;
-
-    protected void checkAndInitVarLength(){
+    void checkAndInitVarLength(){
         int length = -1;
         for(Term term:terms){
             if(length == -1)
@@ -44,5 +38,20 @@ public abstract class Polymerization<T extends Term> implements BoolResult{
             result %= 2;
         }
         return result;
+    }
+
+
+    @Override
+    public int weight() {
+        if(weight != -1)
+            return weight;
+        int varLength = getVarLength();
+        int count = 0;
+        for(int i=0; i<= maxInput(); i++){
+            if(resultOf(BoolVector.createBoolVector(i,varLength)) == 1)
+                count++;
+        }
+        weight = count;
+        return count;
     }
 }

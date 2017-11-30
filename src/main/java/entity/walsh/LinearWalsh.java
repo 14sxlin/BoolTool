@@ -1,5 +1,6 @@
 package entity.walsh;
 
+import entity.bool.BoolFunction;
 import entity.bool.BoolResult;
 import entity.bool.BoolVector;
 
@@ -9,7 +10,7 @@ import entity.bool.BoolVector;
  */
 public class LinearWalsh extends Walsh {
 
-    LinearWalsh(BoolResult boolResult,int varLength){
+    public LinearWalsh(BoolFunction boolResult, int varLength){
         super(boolResult,varLength);
     }
 
@@ -17,7 +18,7 @@ public class LinearWalsh extends Walsh {
      * walsh 谱的值, 不乘上 1/(2^n)
      */
     @Override
-    public int rawResultOf(BoolVector w){
+    public int resultOf(BoolVector w){
         int result = 0;
         for(int i=0; i <= maxInput() ; i++){
             BoolVector x = BoolVector.createBoolVector(i,w.getLength());
@@ -25,5 +26,4 @@ public class LinearWalsh extends Walsh {
         }
         return result;
     }
-
 }

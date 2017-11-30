@@ -41,9 +41,9 @@ public class BoolVector {
         for(int i=0; i<values.length; i++){
             if(ints[i] == 1){
                 values[i] = BoolValue.ONE;
-            }else if(ints[i] == 1){
+            }else if(ints[i] == 0){
                 values[i] = BoolValue.ZERO;
-            }else throw new IllegalArgumentException("ints should be 1 or 0");
+            }else throw new IllegalArgumentException("ints should be 1 or 0, ill: "+ints[i]);
         }
         return new BoolVector(values);
     }
@@ -123,6 +123,13 @@ public class BoolVector {
         return result % 2;
     }
 
+    public int weight(){
+        int count = 0;
+        for(BoolValue v : boolValues)
+            if(v == BoolValue.ONE)
+                count++;
+        return count;
+    }
     @Override
     public String toString() {
         return "BoolVector{" +

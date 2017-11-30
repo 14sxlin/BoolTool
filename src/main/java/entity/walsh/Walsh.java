@@ -1,26 +1,25 @@
 package entity.walsh;
 
-import entity.bool.BoolResult;
+import entity.bool.BoolFunction;
 import entity.bool.BoolVector;
-import entity.bool.TransformUtilsKt;
 
 /**
  * Created by linsixin on 2017/11/24.
  */
-public abstract class Walsh {
+public abstract class Walsh extends BoolFunction {
 
     /**
      * 能够求得bool函数值的函数
      */
-    protected BoolResult boolFun;
+    public BoolFunction boolFun;
 
     /**
      * 布尔函数输入变量的个数
      */
-    protected int varLength;
+    public int varLength;
 
 
-    public Walsh(BoolResult boolFun,int varLength){
+    public Walsh(BoolFunction boolFun,int varLength){
         if(varLength <= 0)
             throw new IllegalArgumentException("varLength should > 0");
         if(varLength > 31)
@@ -31,22 +30,22 @@ public abstract class Walsh {
     }
 
     /**
-     * 计算 walsh 谱的值
+     * 计算 walsh 谱的值, 实现的时候需要乘上 1/(2^n)
      * @param w walsh谱的输入
      */
-    public double resultOf(BoolVector w){
-        return rawResultOf(w) / Math.pow(2.0,varLength);
+    public double walshResult(BoolVector w){
+        return resultOf(w) / Math.pow(2.0,varLength);
     };
 
     /**
      * walsh 谱的值, 不乘上 1/(2^n)
      */
-    public abstract int rawResultOf(BoolVector w);
+    public abstract int resultOf(BoolVector w);
 
     /**
      * (-1)^pow
      */
-    protected final int _1power(int pow) {
+    public final int _1power(int pow) {
         if(pow % 2 == 0)
             return 1;
         else return -1;
@@ -55,14 +54,16 @@ public abstract class Walsh {
     /**
      * 对应输入x 布尔函数的输出值
      */
-    protected int f(BoolVector x){
+    public int f(BoolVector x){
         return boolFun.resultOf(x);
     }
 
-    protected int maxInput(){
-        long max = (long)((1 << varLength) - 1);
-        if(max > Integer.MAX_VALUE)
-            throw new IllegalArgumentException("var length too large");
-        return (int)max;
+    /**
+     * walsh谱的重量为其对应的布尔函数的重量
+     */
+    @Override
+    public int weight() {
+        return boolFun.weight();
     }
+
 }

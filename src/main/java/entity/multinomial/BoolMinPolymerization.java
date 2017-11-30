@@ -45,8 +45,6 @@ public class BoolMinPolymerization extends Polymerization<BoolMinPolymerization.
         return sb.toString();
     }
 
-
-
     /**
      *  布尔函数小项表示中的项
      */

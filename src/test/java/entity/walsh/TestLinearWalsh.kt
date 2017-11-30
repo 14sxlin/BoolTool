@@ -11,7 +11,18 @@ import kotlin.test.assertTrue
 /**
  * Created by linsixin on 2017/11/26.
  */
-class TestWalsh{
+class TestLinearWalsh {
+
+    companion object {
+        val varLength = 2
+        val terms = setOf(
+                BoolTerm.create(varLength,0,1),
+                BoolTerm.create(varLength,0),
+                BoolTerm.create(varLength,1)).toHashSet()
+
+        val boolfun = BoolPolymerization(terms)
+        val linearWalsh = LinearWalsh(boolfun,varLength)
+    }
 
     @Test
     fun testGetMaxInput(){
@@ -23,13 +34,7 @@ class TestWalsh{
 
     @Test
     fun testWalshResult(){
-        val varLength = 2
-        val terms = setOf(
-                BoolTerm.create(varLength,0,1),
-                BoolTerm.create(varLength,0),
-                BoolTerm.create(varLength,1)).toHashSet()
 
-        val boolfun = BoolPolymerization(terms)
         assertTrue(0 ==
                 boolfun.resultOf(BoolVector.createBoolVector("00",varLength)))
         assertTrue(1 ==
@@ -39,15 +44,15 @@ class TestWalsh{
         assertTrue(1 ==
                 boolfun.resultOf(BoolVector.createBoolVector("11",varLength)))
 
-        val linearWalsh = LinearWalsh(boolfun,varLength)
+
         assertEquals(  3 ,
-                linearWalsh.rawResultOf(BoolVector.createBoolVector("00",varLength)))
+                linearWalsh.resultOf(BoolVector.createBoolVector("00",varLength)))
         assertEquals( -1 ,
-                linearWalsh.rawResultOf(BoolVector.createBoolVector("01",varLength)))
+                linearWalsh.resultOf(BoolVector.createBoolVector("01",varLength)))
         assertEquals( -1 ,
-                linearWalsh.rawResultOf(BoolVector.createBoolVector("10",varLength)))
+                linearWalsh.resultOf(BoolVector.createBoolVector("10",varLength)))
         assertEquals( -1 ,
-                linearWalsh.rawResultOf(BoolVector.createBoolVector("11",varLength)))
+                linearWalsh.resultOf(BoolVector.createBoolVector("11",varLength)))
     }
 
 
@@ -70,12 +75,12 @@ class TestWalsh{
 
         val linearWalsh = LinearWalsh(boolfun,varLength)
         assertEquals(  3,
-                linearWalsh.rawResultOf(BoolVector.createBoolVector("00",varLength)))
+                linearWalsh.resultOf(BoolVector.createBoolVector("00",varLength)))
         assertEquals( 1,
-                linearWalsh.rawResultOf(BoolVector.createBoolVector("01",varLength)))
+                linearWalsh.resultOf(BoolVector.createBoolVector("01",varLength)))
         assertEquals( 1 ,
-                linearWalsh.rawResultOf(BoolVector.createBoolVector("10",varLength)))
+                linearWalsh.resultOf(BoolVector.createBoolVector("10",varLength)))
         assertEquals( -1 ,
-                linearWalsh.rawResultOf(BoolVector.createBoolVector("11",varLength)))
+                linearWalsh.resultOf(BoolVector.createBoolVector("11",varLength)))
     }
 }
