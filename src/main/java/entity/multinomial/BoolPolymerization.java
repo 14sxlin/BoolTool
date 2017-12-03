@@ -15,7 +15,7 @@ public final class BoolPolymerization
 
     public static final OneTerm ONE_TERM = new OneTerm();
 
-    public BoolPolymerization(){
+    private BoolPolymerization(){
         terms = new HashSet<>();
     }
 

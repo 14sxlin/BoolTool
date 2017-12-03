@@ -1,5 +1,7 @@
 package entity.bool;
 
+import java.util.Formatter;
+
 /**
  * Created by linsixin on 2017/11/22.
  * This class represent a bool function,
@@ -34,7 +36,21 @@ public abstract class BoolFunction implements BoolResult {
 
     /**
      * bool 函数的weight
-     * @return
      */
     public abstract int weight();
+
+    public void printBoolTable(int gap){
+        assert gap > 0;
+        for(int i=0;i<=maxInput();i++){
+            String s = Integer.toBinaryString(i);
+            int firstNum = s.charAt(0) - '0';
+            int len = s.length()-1;
+            System.out.print(
+                    String.format("%0"+(varLength-len)+"d%s : %d\t",
+                            firstNum,
+                            s.substring(1),
+                            resultOf(BoolVector.createBoolVector(i,varLength))));
+            if((i+1) % gap == 0) System.out.println();
+        }
+    }
 }

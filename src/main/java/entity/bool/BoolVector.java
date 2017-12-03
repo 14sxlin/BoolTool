@@ -74,8 +74,8 @@ public class BoolVector {
         return new BoolVector(values);
     }
 
-    public static BoolVector createBoolVector(String integer,int varLength){
-        return createBoolVector(Integer.parseInt(integer,2),varLength);
+    public static BoolVector createBoolVector(String binaryInteger,int varLength){
+        return createBoolVector(Integer.parseInt(binaryInteger,2),varLength);
     }
 
 
@@ -108,21 +108,43 @@ public class BoolVector {
 
     private int[] asIntArray(){
         int[] result = new int[boolValues.length];
-        System.arraycopy(boolValues,0,result,0,result.length);
+        for(int i=0;i<boolValues.length; i++){
+            result[i] = boolValues[i].toInt;
+        }
         return result;
     }
 
-    public int multiply(BoolVector boolVector){
-        assert getLength() == boolVector.getLength();
+    /**
+     * 布尔函数的内积
+     * 参考 现代密码学中的布尔函数 p5 walsh谱的定义
+     */
+    public int multiply(BoolVector other){
+        assert getLength() == other.getLength();
         int result = 0;
         for(int i = 0; i< boolValues.length; i++){
             int temp = intAt(i);
             if(temp == 0) continue;
-            result += temp * boolVector.intAt(i);
+            result += temp * other.intAt(i);
         }
         return result % 2;
     }
 
+    /**
+     * 布尔函数的加法,对应的位相加 % 2
+     */
+    public BoolVector boolAdd(BoolVector other){
+        if(other.boolValues.length != boolValues.length)
+            throw new IllegalArgumentException("bool vector should have same length");
+        BoolValue[] newBoolValues = new BoolValue[boolValues.length];
+        for(int i=0;i<boolValues.length; i++){
+            newBoolValues[i] = boolValues[i].add(other.boolValues[i]);
+        }
+        return new BoolVector(newBoolValues);
+    }
+
+    /**
+     * 向量的重量, 也就是1的数量, wt(vector)
+     */
     public int weight(){
         int count = 0;
         for(BoolValue v : boolValues)
@@ -130,6 +152,8 @@ public class BoolVector {
                 count++;
         return count;
     }
+
+
     @Override
     public String toString() {
         return "BoolVector{" +

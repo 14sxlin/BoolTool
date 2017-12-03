@@ -14,4 +14,11 @@ public enum BoolValue {
         toInt = i;
         toBool = i == 1;
     }
+
+    public BoolValue add(BoolValue other){
+        int result = this.toInt + other.toInt;
+        if(result % 2 ==0 )
+            return ZERO;
+        else return ONE;
+    }
 }
