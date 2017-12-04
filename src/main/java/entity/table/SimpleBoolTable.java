@@ -14,12 +14,12 @@ public class SimpleBoolTable extends BoolFunction {
      * 比如说 8 的 二进制 是 1000 , 则 values[8] = f(1000)
      */
     private int[] values;
-
     private int weight = -1;
 
     private BoolFunction boolFunction;
 
-    public SimpleBoolTable(int[] values){
+    public SimpleBoolTable(int[] values,int varLength){
+        super(varLength);
         if(values == null || values.length == 0)
             throw new IllegalArgumentException("values should not be null or empty");
         this.values = values;
@@ -29,6 +29,7 @@ public class SimpleBoolTable extends BoolFunction {
      * 通过这种方式的初始化,一开始不会计算出所有的值,而是每次计算都会缓存
      */
     public SimpleBoolTable(BoolFunction boolFunction){
+        super(boolFunction.getVarLength());
         int len = boolFunction.getVarLength();
         if(len > 31 || len <=0 )
             throw new IllegalArgumentException("len should be in [1,31]");
@@ -38,7 +39,7 @@ public class SimpleBoolTable extends BoolFunction {
             values[i] = -1;
 
         this.boolFunction = boolFunction;
-
+        this.varLength = boolFunction.getVarLength();
     }
 
     /**

@@ -7,19 +7,26 @@ import entity.bool.BoolVector
  * Created by linsixin on 2017/12/3.
  * 导数,布尔函数关于a的导数
  */
-class Differential constructor(val boolFunction: BoolFunction, val a:BoolVector) {
+class Differential constructor(val boolFunction: BoolFunction, val a:BoolVector) : BoolFunction(boolFunction.varLength) {
 
     init {
         if(boolFunction.varLength != a.length)
             throw IllegalArgumentException("x.length should = a.length")
     }
 
-    fun resultOf(x:BoolVector):Int {
+    override fun resultOf(x:BoolVector):Int {
         return (boolFunction.resultOf(x)
                 + boolFunction.resultOf(a.boolAdd(x))) % 2
     }
 
-    fun printTable(gap: Int) {
+    override fun weight(): Int {
+        val len = boolFunction.varLength
+        return (0..boolFunction.maxInput()).count {
+            resultOf(BoolVector.createBoolVector(it,len)) == 1
+        }
+    }
+
+    fun printTable(gap: Int = 4) {
         assert(gap > 0)
         val varLength = boolFunction.varLength
         for (i in 0..boolFunction.maxInput()) {

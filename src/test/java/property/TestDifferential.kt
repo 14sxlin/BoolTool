@@ -11,6 +11,23 @@ import entity.multinomial.BoolPolymerization.BoolTerm
  */
 class TestDifferential {
 
+    companion object{
+        private val total = 4
+        private val terms1 =
+                arrayOf(BoolTerm.create(total, 1, 3),
+                        BoolTerm.create(total, 2, 3),
+                        BoolPolymerization.ONE_TERM)
+        val poly1 = BoolPolymerization(*terms1)
+
+
+        private val terms2 =
+                arrayOf(BoolTerm.create(total, 1, 3),
+                        BoolTerm.create(total, 1, 2),
+                        BoolPolymerization.ONE_TERM)
+        val poly2 = BoolPolymerization(*terms2)
+    }
+
+
     @Ignore
     @Test
     fun testInit(){
@@ -24,24 +41,8 @@ class TestDifferential {
 
     @Test
     fun testResultOf(){
-        val total = 4
         val a =
                 BoolVector.createBoolVector("1001",4)
-
-
-        val terms1 =
-                arrayOf(BoolTerm.create(total, 1, 3),
-                        BoolTerm.create(total, 2, 3),
-                        BoolPolymerization.ONE_TERM)
-        val poly1 = BoolPolymerization(*terms1)
-
-
-        val terms2 =
-                arrayOf(BoolTerm.create(total, 1, 3),
-                        BoolTerm.create(total, 1, 2),
-                        BoolPolymerization.ONE_TERM)
-        val poly2 = BoolPolymerization(*terms2)
-
 
         println(poly1.toString())
         poly1.printBoolTable(4)

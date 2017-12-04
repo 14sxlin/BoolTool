@@ -20,6 +20,7 @@ public abstract class Walsh extends BoolFunction {
 
 
     public Walsh(BoolFunction boolFun,int varLength){
+        super(varLength);
         if(varLength <= 0)
             throw new IllegalArgumentException("varLength should > 0");
         if(varLength > 31)

@@ -14,6 +14,10 @@ public abstract class Polymerization<T extends Term> extends BoolFunction{
     HashSet<T> terms;
     int weight = -1;
 
+    Polymerization(){
+        super(-1);
+    }
+
     void checkAndInitVarLength(){
         int length = -1;
         for(Term term:terms){

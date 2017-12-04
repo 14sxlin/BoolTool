@@ -16,6 +16,10 @@ public abstract class BoolFunction implements BoolResult {
      */
     protected int varLength;
 
+    public BoolFunction(int varLength){
+        this.varLength = varLength;
+    }
+
     /**
      * @return 布尔函数的输入变量的个数
      */

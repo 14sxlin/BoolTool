@@ -154,6 +154,15 @@ public class BoolVector {
     }
 
 
+    public String toBinaryString(){
+        StringBuilder sb = new StringBuilder();
+        for(BoolValue bv:boolValues){
+            sb.append(bv.toInt);
+        }
+        return sb.toString();
+    }
+
+
     @Override
     public String toString() {
         return "BoolVector{" +

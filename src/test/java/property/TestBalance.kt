@@ -1,10 +1,12 @@
 package property
 
+import entity.table.SimpleBoolTable
 import entity.walsh.TestLinearWalsh
 import entity.walsh.TestLoopWalsh
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 import kotlin.test.fail
 
 /**
@@ -23,6 +25,9 @@ class TestBalance {
     fun testIsBalance(){
         assertFalse {  Balance.isBalance(TestLinearWalsh.boolfun) }
         assertFalse {  Balance.isBalance(TestLoopWalsh.boolfun)   }
-        fail("not implement")
+
+        val valueTable = intArrayOf(1,1,1,1,0,0,0,0)
+        val balanceBool= SimpleBoolTable(valueTable,3)
+        assertTrue {  Balance.isBalance(balanceBool) }
     }
 }
