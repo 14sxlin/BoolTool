@@ -3,6 +3,9 @@ package entity.bool
 /**
  * Created by linsixin on 2017/11/29.
  */
+/**
+ * 求长度为varLen, 重量为weight的所有布尔向量
+ */
 fun setOfVectors(varLen:Int, weight:Int) : Set<BoolVector> {
     if(varLen < 0 || weight <= 0)
         throw IllegalArgumentException("Illegal varLen = $varLen or weight =$weight")
@@ -39,4 +42,12 @@ fun setOfVectors(varLen:Int, weight:Int) : Set<BoolVector> {
     }
     gen(0,0)
     return set
+}
+
+/**
+ * 二进制长度为len的时候,最大的值
+ */
+fun maxBoolVectorValueOf(len: Int):Int {
+    if(len > 31 || len < 0) IllegalArgumentException("len should <= 31")
+    return (1 shl len) - 1
 }

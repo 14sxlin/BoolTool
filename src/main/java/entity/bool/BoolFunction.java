@@ -32,10 +32,9 @@ public abstract class BoolFunction implements BoolResult {
      * @return 实际上就是变量长度个1的整数形式
      */
     public int maxInput(){
-        long max = (long)((1 << varLength) - 1);
-        if(max > Integer.MAX_VALUE)
+        if(varLength > 31 || varLength <=0)
             throw new IllegalArgumentException("var length too large");
-        return (int)max;
+        return (1 << varLength) - 1;
     }
 
     /**

@@ -1,4 +1,4 @@
-package property
+package property.define
 
 import entity.bool.BoolFunction
 import entity.bool.BoolVector
@@ -7,14 +7,23 @@ import entity.bool.BoolVector
  * Created by linsixin on 2017/12/3.
  * 导数,布尔函数关于a的导数
  */
-class Differential constructor(val boolFunction: BoolFunction, val a:BoolVector) : BoolFunction(boolFunction.varLength) {
+class Differential constructor(val boolFunction: BoolFunction) : BoolFunction(boolFunction.varLength) {
 
-    init {
+    private lateinit var a:BoolVector
+
+    constructor(boolFunction: BoolFunction,a:BoolVector):this(boolFunction){
         if(boolFunction.varLength != a.length)
             throw IllegalArgumentException("x.length should = a.length")
+        this.a = a
     }
 
     override fun resultOf(x:BoolVector):Int {
+        return resultOf(x,this.a)
+    }
+
+    fun resultOf(x:BoolVector,a:BoolVector):Int {
+        if(boolFunction.varLength != a.length)
+            throw IllegalArgumentException("x.length should = a.length")
         return (boolFunction.resultOf(x)
                 + boolFunction.resultOf(a.boolAdd(x))) % 2
     }

@@ -2,6 +2,7 @@ package property
 
 import entity.bool.BoolFunction
 import entity.bool.setOfVectors
+import property.define.Differential
 
 /**
  * Created by linsixin on 2017/12/3.

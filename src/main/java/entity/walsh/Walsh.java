@@ -46,7 +46,7 @@ public abstract class Walsh extends BoolFunction {
     /**
      * (-1)^pow
      */
-    public final int _1power(int pow) {
+    final int _1power(int pow) {
         if(pow % 2 == 0)
             return 1;
         else return -1;

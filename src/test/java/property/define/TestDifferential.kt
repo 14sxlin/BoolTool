@@ -1,4 +1,4 @@
-package property
+package property.define
 
 import entity.bool.BoolVector
 import entity.multinomial.BoolPolymerization
@@ -6,6 +6,7 @@ import org.junit.Ignore
 import org.junit.Test
 import kotlin.test.assertFailsWith
 import entity.multinomial.BoolPolymerization.BoolTerm
+
 /**
  * Created by linsixin on 2017/12/3.
  */
@@ -34,7 +35,7 @@ class TestDifferential {
         val boolFun = BoolPolymerization()
         val a = BoolVector.createBoolVector("1001",4)
         assertFailsWith(IllegalArgumentException::class){
-            Differential(boolFun,a)
+            Differential(boolFun, a)
         }
 
     }
@@ -47,16 +48,26 @@ class TestDifferential {
         println(poly1.toString())
         poly1.printBoolTable(4)
         println("------Differential-----------")
-        val d1 = Differential(poly1,a)
+        val d1 = Differential(poly1, a)
         d1.printTable(4)
 
         println("\n\n\n")
         println(poly2.toString())
         poly2.printBoolTable(4)
         println("------Differential-----------")
-        val d2 = Differential(poly2,a)
+        val d2 = Differential(poly2, a)
         d2.printTable(4)
         TODO("not implement")
+    }
+
+    @Test
+    fun testCallNoneAResult(){
+        val x =
+                BoolVector.createBoolVector("1001",4)
+        val d = Differential(poly1)
+        assertFailsWith(UninitializedPropertyAccessException::class){
+            d.resultOf(x)
+        }
     }
 
 }

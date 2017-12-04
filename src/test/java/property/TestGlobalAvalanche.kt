@@ -2,6 +2,7 @@ package property
 
 import entity.multinomial.BoolPolymerization
 import org.junit.Test
+import property.define.TestDifferential
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
